@@ -1,0 +1,154 @@
+.outsiderContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 5rem;
+    width: 420px;
+    height: 590px;
+    border-radius: 20px;
+    background-color: var(--gray1);
+    font-family: sans-serif;
+}
+
+.insideContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 95%;
+    height: 96.5%;
+    border-radius: 10px;
+    background-color: var(--yellow1);
+}
+
+.pokeHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    // border: 3px solid black;
+    width: 360px;
+    height: 37px;
+}
+
+.pokeName {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.hpAndType {
+    display: flex;
+    align-items: center;
+    
+}
+
+.hpAndType div {
+    display: flex;
+    align-items: baseline;
+}
+
+.hpValue {
+    font-size: 1.7rem;
+    font-weight: bold;
+    align-self: flex-end;
+    padding-right: .5rem;
+}
+
+.imgContainer {
+    width: 345px;
+    height: 225px;
+    background-color: white;
+    border: 7px solid var(--brown1);
+}
+
+.description {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    // border: 1px solid black;
+    width: 355px;
+    margin-top: .5rem;
+}
+
+.description h3 {
+    margin: .5rem 0;
+}
+
+#powerContainer {
+    // border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#powerName {
+    color: var(--red1);
+}
+
+.descriptionEffect {
+    font-weight: bold;
+    font-size: .9rem;
+    margin: 0;
+}
+
+#hr {
+    background-color: black;
+    height: 2px;
+    width: 100%;
+    margin: .3rem 0;
+}
+
+.attackHeader {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.powerTypeIconsContainer {
+    flex: 1;
+    display: flex;
+    gap: .1rem;
+    align-items: center;
+}
+
+#attackName {
+    text-align: center;
+    flex: 2;
+}
+
+#attackValue {
+    flex: 1;
+    font-size: 2rem;
+    margin: 0;
+    text-align: right;
+}
+
+.powerRelations {
+    display: flex;
+    // border: 1px solid black;
+    width: 100%;
+    align-self: flex-start;
+    justify-content: space-around;
+}
+
+.powerRelations p {
+    margin-bottom: .4rem;
+}
+
+.relationData {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .3rem;
+}
+
+.relationData span {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.retreat {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: .8rem;
+}
