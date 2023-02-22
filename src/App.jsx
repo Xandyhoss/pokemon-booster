@@ -64,24 +64,18 @@ function App() {
     });
   }
 
-  function givePowerStats(url1, url2) {
+  function givePowerStats(url) {
     return new Promise((resolve, reject) => {
       console.log("%c INICIANDO 2ª", "color: green; font-weight: bold");
-      fetch(url1)
+      fetch(url)
         .then((response) => response.json())
         .then((out) => {
           console.log("Power: ", out);
-          pokeInfos.powerName = capitalize(out.name);
-          pokeInfos.powerEffect = out.effect_entries[1].short_effect;
-        });
-      fetch(url2)
-        .then((response) => response.json())
-        .then((out) => {
-          console.log("Attack: ", out);
-          pokeInfos.attackName = capitalize(out.name);
-          pokeInfos.attackEffect = out.effect_entries[1].short_effect;
           console.log("%c FINALIZANDO 2ª", "color: green; font-weight: bold");
-          resolve(out);
+          resolve({
+            name: capitalize(out.name),
+            effect: out.effect_entries[1].short_effect,
+          });
         });
     });
   }
@@ -96,17 +90,21 @@ function App() {
           const lengthWeak = out.damage_relations.double_damage_from.length;
           const lengthResistance = out.damage_relations.half_damage_from.length;
 
-            out.damage_relations.double_damage_from[0] ? pokeInfos.weakness = capitalize(
-            out.damage_relations.double_damage_from[
-              getRandomInt(lengthWeak - 1)
-            ].name
-          ) : console.log("Weakness = None")
-          
-          out.damage_relations.half_damage_from[0] ? pokeInfos.resistance = capitalize(
-            out.damage_relations.half_damage_from[
-              getRandomInt(lengthWeak - 1)
-            ].name
-            ) : console.log("Resistance = None")
+          out.damage_relations.double_damage_from[0]
+            ? (pokeInfos.weakness = capitalize(
+                out.damage_relations.double_damage_from[
+                  getRandomInt(lengthWeak - 1)
+                ].name
+              ))
+            : console.log("Weakness = None");
+
+          out.damage_relations.half_damage_from[0]
+            ? (pokeInfos.resistance = capitalize(
+                out.damage_relations.half_damage_from[
+                  getRandomInt(lengthWeak - 1)
+                ].name
+              ))
+            : console.log("Resistance = None");
 
           pokeInfos.doubleDamage = out.damage_relations.double_damage_to.map(
             (e) => capitalize(e.name)
@@ -118,23 +116,30 @@ function App() {
   }
 
   useEffect(() => {
-    grabPoke("399")
-      .then((out) =>
-        givePowerStats(
-          out.abilities[0].ability.url,
-          out.abilities[1].ability.url
-        )
-      )
+    grabPoke("152")
+      .then((out) => {
+        givePowerStats(out.abilities[0].ability.url).then((obj) => {
+          pokeInfos.powerName = obj.name;
+          pokeInfos.powerEffect = obj.effect;
+        });
+        return out;
+      })
+      .then((out) => {
+        out.abilities[1] &&
+          givePowerStats(out.abilities[1].ability.url).then((obj) => {
+            pokeInfos.attackName = obj.name;
+            pokeInfos.attackEffect = obj.effect;
+          });
+      })
       .then(() => getTypeInfos(pokeInfos.typeUrl))
       .then(() => setPokeData(pokeInfos))
-      .then(() => console.log(pokeInfos))
+      .then(() => console.log(pokeInfos));
   }, []);
 
   return (
     <AppWrapper>
       POKEMON.API
       <Card data={pokeData} />
-      
       {/* <div style={{ position: "absolute", bottom: 0, left: 0 }}>
         {Object.entries(pokeData).map((entrie) => (
           <h2 key={entrie}>
@@ -142,7 +147,6 @@ function App() {
           </h2>
         ))}
       </div> */}
-
       <div className="overlay" />
       <img src={backgroundImage} alt="" className="backgroundImg" />
     </AppWrapper>
