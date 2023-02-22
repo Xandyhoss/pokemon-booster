@@ -21,7 +21,7 @@ import Steel from "../../assets/img/pokemonTypes/Steel.ico";
 import Water from "../../assets/img/pokemonTypes/Water.ico";
 
 import TypeIcon from "./TypeIcon/TypeIcon";
-export default function Card({data}) {
+export default function Card({ data }) {
   const defaultPowerEffect =
     "Type the effect of a Pokémon Power here. Adjust size, leading, and placement as needed";
   const defaultAttackEffect =
@@ -35,72 +35,68 @@ export default function Card({data}) {
             {data.name ? data.name : "Name"}
           </span>
           <div className={styles.hpAndType}>
-            <span className={styles.hpValue}>
-              {data.hp ? data.hp : "00"}HP
-            </span>
+            <span className={styles.hpValue}>{data.hp ? data.hp : "00"}HP</span>
             <TypeIcon name={data ? data.type : Normal} size="35px" />
           </div>
         </div>
 
-        <div className={styles.imgContainer}></div>
+        <div className={styles.imgContainer}>
+          <img src={data.img} alt="" id={styles.pokeImg} />
+        </div>
 
         <div className={styles.description}>
+          
           <div id={styles.powerContainer}>
-            <h3 id={styles.powerName}>
-              {data.power ? data.power.name : "Power Name"}
-            </h3>
+            <h2 id={styles.powerName}>
+              {data.powerName ? data.powerName : "Power Name"}
+            </h2>
             <p className={styles.descriptionEffect}>
-              {data.power ? data.power.effect : defaultPowerEffect}
+              {data.powerEffect ? data.powerEffect : defaultPowerEffect}
             </p>
           </div>
 
-          <span id={styles.hr} />
+          {/* <span id={styles.hr} /> */}
 
           <div id={styles.attackContainer}>
             <div className={styles.attackHeader}>
-              <div className={styles.powerTypeIconsContainer}>
-                <TypeIcon name={Normal} size="25px" />
-                <TypeIcon name={Normal} size="25px" />
-                <TypeIcon name={Normal} size="25px" />
-              </div>
-              <h3 id={styles.attackName}>
-                {data.attack ? data.Attack.name : "Attack Name"}
-              </h3>
-              <h3 id={styles.attackValue}>
-                {data.stats ? data.stats.attack : "00"}
-              </h3>
-            </div>
+              <h2 id={styles.attackName}>
+                {data.attackName ? data.attackName : "Attack Name"}
+              </h2>
             <p className={styles.descriptionEffect}>
-              {data.power ? data.power.effect : defaultAttackEffect}
+              {data.attackEffect ? data.attackEffect : defaultAttackEffect}
             </p>
+            </div>
+              <h2 id={styles.attackValue}>{data ? data.atk : "00"}</h2>
           </div>
 
-          <span id={styles.hr} />
+          {/* <span id={styles.hr} /> */}
 
           <div className={styles.retreat}>
-            <span className={styles.descriptionEffect}>Retreat:</span>
-            <div className={styles.powerTypeIconsContainer}>
-              <TypeIcon name={Normal} size="25px" />
-              <TypeIcon name={Normal} size="25px" />
-              <TypeIcon name={Normal} size="25px" />
-              <TypeIcon name={Normal} size="25px" />
-            </div>
+            <span className={styles.descriptionEffec}>Double Damage:</span>
+              <div className={styles.powerTypeIconsContainer}>
+                {(data.doubleDamage && data.doubleDamage.length > 0) ?
+                  data.doubleDamage.map((type) => (
+                    <TypeIcon name={type} size="25px" key={type}/>
+                  )) : <p className={styles.descriptionEffect}>None</p>}
+              </div>
           </div>
-          <span id={styles.hr} />
+          {/* <span id={styles.hr} /> */}
 
           <div className={styles.powerRelations}>
             <div className={styles.relation}>
               <p className={styles.descriptionEffect}>weakness</p>
               <div className={styles.relationData}>
-                <TypeIcon name={Normal} size="35px" />
-                <span>X2</span>
+                {data.weakness ? 
+                <><TypeIcon name={data.weakness} size="35px" /><span>X2</span></> : <span>NONE</span>
+                }
               </div>
             </div>
             <div className={styles.relation}>
               <p className={styles.descriptionEffect}>resistance</p>
               <div className={styles.relationData}>
-                <TypeIcon name={Normal} size="35px" />
-                <span>-20</span>
+              {data.resistance ? 
+                <><TypeIcon name={data.resistance} size="35px" /><span>X2</span></> : <span>NONE</span>
+                }
               </div>
             </div>
           </div>

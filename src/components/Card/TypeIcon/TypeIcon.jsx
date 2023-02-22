@@ -44,7 +44,6 @@ export default function TypeIcon({ name, size }) {
   let type
   icons.forEach((icon) => {
     if (icon.toString().includes(name)) {
-        // console.log(icon)
         type = icon
     }
 
@@ -55,7 +54,6 @@ export default function TypeIcon({ name, size }) {
     width: size,
     height: size,
     borderRadius: "50%",
-    boxShadow: "2px 2px 4px 0.2px rgba(0,0,0,0.75)",
     zIndex: "999",
   };
 
