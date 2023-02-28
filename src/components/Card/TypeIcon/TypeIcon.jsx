@@ -18,48 +18,43 @@ import Psychic from "../../../assets/img/pokemonTypes/Psychic.ico";
 import Rock from "../../../assets/img/pokemonTypes/Rock.ico";
 import Steel from "../../../assets/img/pokemonTypes/Steel.ico";
 import Water from "../../../assets/img/pokemonTypes/Water.ico";
+import styled from "styled-components";
+
+
+const IconImg = styled.img`
+width: ${props => props.size};
+height: ${props => props.size};
+border-radius: 50%;
+z-index: 999;
+`;
+
+const icons = [
+  Ghost,
+  Bug,
+  Dark,
+  Dragon,
+  Electric,
+  Fairy,
+  Fighting,
+  Fire,
+  Flying,
+  Grass,
+  Ground,
+  Ice,
+  Normal,
+  Poison,
+  Psychic,
+  Rock,
+  Steel,
+  Water,
+];
 
 export default function TypeIcon({ name, size }) {
-  const icons = [
-    Ghost,
-    Bug,
-    Dark,
-    Dragon,
-    Electric,
-    Fairy,
-    Fighting,
-    Fire,
-    Flying,
-    Grass,
-    Ground,
-    Ice,
-    Normal,
-    Poison,
-    Psychic,
-    Rock,
-    Steel,
-    Water,
-  ];
 
-  let type
-  icons.forEach((icon) => {
-    if (icon.toString().includes(name)) {
-        type = icon
-    }
-
-})
-
-
-  const style = {
-    width: size,
-    height: size,
-    borderRadius: "50%",
-    zIndex: "999",
-  };
-
+  const type = icons.find(icon => icon.toString().includes(name))
   return (
     <>
-      <img src={type} alt="" style={style} />
+      <IconImg src={type} alt="" size={size} />
     </>
   );
 }
