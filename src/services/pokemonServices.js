@@ -57,7 +57,7 @@ export const requestPokemon = async (id) => {
         ]
     }
 
-    console.log('DATA DO POKEMON TRATADA= ', returnData)
+    console.log('POKEMON DATA: ', returnData)
 
     return returnData;
 }

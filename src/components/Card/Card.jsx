@@ -1,14 +1,18 @@
 import React from "react";
 import styles from "./Card.module.scss";
-import Normal from "../../assets/img/pokemonTypes/Normal.ico";
 import TypeIcon from "./TypeIcon/TypeIcon";
+import capitalize from "../../utils/capitalize";
+import getRandomNumber from "../../utils/getRandomNumber";
 
 export default function Card({ data }) {
+  const weaknessIconIndex = getRandomNumber(data.typeInfos.weakness.length - 1)
+  const resistanceIconIndex = getRandomNumber(data.typeInfos.resistance.length - 1)
+
   return (
     <div className={styles.insideContainer}>
       <div id={styles.content}>
         <div className={styles.pokeHeader}>
-          <h1>{data.name}</h1>
+          <h1>{capitalize(data.name)}</h1>
           <div className={styles.hpAndType}>
             <h1 className={styles.hpValue}>{data.hp}HP</h1>
             <TypeIcon name={data.type} size="35px" />
@@ -24,17 +28,17 @@ export default function Card({ data }) {
           <div id={styles.powerContainer}>
             <div id={styles.powerContent}>
               <h2 id={styles.powerName}>
-                {data.powerName}
+                {capitalize(data.powers[0].name)}
               </h2>
-              <p>{data.powerEffect}</p>
+              <p>{capitalize(data.powers[0].effect)}</p>
             </div>
           </div>
 
           <div id={styles.attackContainer}>
             <div className={styles.attackHeader}>
-              <h2>{data.attackName}</h2>
+              <h2>{capitalize(data.powers[1].name)}</h2>
               <p>
-                {data.attackEffect}
+                {capitalize(data.powers[1].effect)}
               </p>
             </div>
             <h2 id={styles.attackValue}>{data.atk}</h2>
@@ -45,8 +49,8 @@ export default function Card({ data }) {
               <p>Double Damage:</p>
             </span>
             <div className={styles.powerTypeIconsContainer}>
-              {data.doubleDamage && data.doubleDamage.length > 0 ? (
-                data.doubleDamage.map((type) => (
+              {data.typeInfos.doubleDamage && data.typeInfos.doubleDamage.length > 0 ? (
+                data.typeInfos.doubleDamage.map((type) => (
                   <TypeIcon name={type} size="25px" key={type} />
                 ))
               ) : (
@@ -59,9 +63,9 @@ export default function Card({ data }) {
             <div className={styles.relation}>
               <p className={styles.descriptionEffect}>weakness</p>
               <div className={styles.relationData}>
-                {data.weakness ? (
+                {data.typeInfos.weakness ? (
                   <>
-                    <TypeIcon name={data.weakness} size="35px" />
+                    <TypeIcon name={data.typeInfos.weakness[weaknessIconIndex]} size="35px" />
                     <span>X2</span>
                   </>
                 ) : (
@@ -72,9 +76,9 @@ export default function Card({ data }) {
             <div className={styles.relation}>
               <p className={styles.descriptionEffect}>resistance</p>
               <div className={styles.relationData}>
-                {data.resistance ? (
+                {data.typeInfos.resistance ? (
                   <>
-                    <TypeIcon name={data.resistance} size="35px" />
+                    <TypeIcon name={data.typeInfos.resistance[resistanceIconIndex]} size="35px" />
                     <span>X2</span>
                   </>
                 ) : (
